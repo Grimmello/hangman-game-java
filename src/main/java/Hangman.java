@@ -1,43 +1,53 @@
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class Hangman{
-  private Integer mWrongGuesses = 0 ;
+  public Integer mWrongGuesses = 0 ;
   private List<String> mLettersGuessed = new ArrayList<String>();
   private String mWord;
-  private Integer mReturnNumber;
-  private String mDashesString;
+  private String mDashesString = "";
+  public boolean mStillPlaying = true;
 
-//return number corresponding to if the letter has already been used, and if it has not been used, if the letter is present in the word.
-  public Integer hangmanGame1 (String word, String letter){
-    Integer returnNumber;
-    if(mLettersGuessed.contains(letter)){
-      returnNumber = 0;
-    } else {
-      mLettersGuessed.add(letter);
-      List wordSplit = Arrays.asList(word.split(""));
-      if (wordSplit.contains(letter)) {
-        returnNumber = 1;
+// Return String of letters and dashes, showing letters that were guessed correctly, and also blanks for letters that have not been guessed yet
+  public String hangmanGame (String word, String letter){
+    if (mWrongGuesses < 6) {
+      if (mDashesString.length() > 0) {
+        if(mLettersGuessed.contains(letter)){
+          return mDashesString;
+        } else{
+          mLettersGuessed.add(letter);
+          List wordSplit = Arrays.asList(word.split(""));
+          if (wordSplit.contains(letter)) {
+            Integer indexWord = word.indexOf(letter);
+            char letterChar = letter.charAt(0);
+            char[] dashesCharArray = mDashesString.toCharArray();
+            dashesCharArray[indexWord] = letterChar;
+            mDashesString = String.valueOf(dashesCharArray);
+            if(mDashesString.equals(word)) {
+              mDashesString = "Yay the word was: " + word;
+              mStillPlaying = false;
+              return mDashesString;
+            }
+            return mDashesString;
+          } else {
+          mWrongGuesses += 1;
+          return mDashesString;
+          }
+        }
       } else {
-        returnNumber = 2;
-        mWrongGuesses += 1;
+        String dashString = word.replaceAll(".", "_");
+        mDashesString = dashString;
+        return mDashesString;
       }
-    }
-    mReturnNumber = returnNumber;
-    return mReturnNumber;
-  }
 
-//Return String of letters and dashes, showing letters that were guessed correctly, and also blanks for letters that have not been guessed yet
-  public String hangmanGame2 (String word){
-    String dashString = word.replaceAll(".", "_");
-    // List dashList = Arrays.asList(dashString.split(""));
-    // List wordSplit = Arrays.asList(word.split(""));
-    // int wordLength = wordSplit.size();
-    mDashesString = dashString;
-    return mDashesString;
-  }
-  public String hangmanGame3 (String word, String letter){
-    return "null";
+    }
+    else {
+      mDashesString = "Game over. The word was: "+ word;
+      mStillPlaying = false;
+      return mDashesString;
+    }
   }
 }

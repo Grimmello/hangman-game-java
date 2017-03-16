@@ -5,30 +5,48 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HangmanTest {
-  @Test
-  public void newGame_determineOneLetterWord_true(){
-    Hangman testHangman = new Hangman();
-    Integer resultExpected = 1;
-    assertEquals(resultExpected, testHangman.hangmanGame1("a", "a"));
-  }
-  @Test
-  public void newGame_determineOneLetterWord_false(){
-    Hangman testHangman = new Hangman();
-    Integer resultExpected = 2;
-    assertEquals(resultExpected, testHangman.hangmanGame1("a", "b"));
-  }
+  // @Test
+  // public void newGame_determineOneLetterWord_true(){
+  //   Hangman testHangman = new Hangman();
+  //   Integer resultExpected = 1;
+  //   assertEquals(resultExpected, testHangman.hangmanGame("a", "a"));
+  // }
+  // @Test
+  // public void newGame_determineOneLetterWord_false(){
+  //   Hangman testHangman = new Hangman();
+  //   Integer resultExpected = 2;
+  //   assertEquals(resultExpected, testHangman.hangmanGame1("a", "b"));
+  // }
   @Test
   public void newGame_printLineOfDashesNoLettersGuessedCorrectly_dashes(){
     Hangman testHangman = new Hangman();
     String resultExpected = "___";
-    assertEquals(resultExpected, testHangman.hangmanGame2("cat"));
+    assertEquals(resultExpected, testHangman.hangmanGame("cat","b"));
   }
-  // @Test
-  // public void newGame_printLineOfDashesNoLettersGuessedCorrectly_spacesFilled(){
-  //   Hangman testHangman = new Hangman();
-  //   String resultExpected = "_ a _ ";
-  //   assertEquals(resultExpected, testHangman.hangmanGame2("cat", "a", 1));
-  // }
+  @Test
+  public void newGame_printLineOfDashesAndLetterGuessedCorrectly_spacesFilled(){
+    Hangman testHangman = new Hangman();
+    testHangman.hangmanGame("cat","a");
+    String resultExpected = "_a_";
+    assertEquals(resultExpected, testHangman.hangmanGame("cat", "a"));
+  }
+  @Test
+  public void newGame_printLineOfDashesAndLettersGuessedCorrectly_manySpacesFilled(){
+    Hangman testHangman = new Hangman();
+    testHangman.hangmanGame("cat","a");
+    testHangman.hangmanGame("cat","a");
+    String resultExpected = "_at";
+    assertEquals(resultExpected, testHangman.hangmanGame("cat", "t"));
+  }
+  @Test
+  public void newGame_printLineOfDashesNextLettersNotGuessedCorrectly_previousSpacesFilled(){
+    Hangman testHangman = new Hangman();
+    testHangman.hangmanGame("cat","a");
+    testHangman.hangmanGame("cat","a");
+    testHangman.hangmanGame("cat","b");
+    String resultExpected = "_a_";
+    assertEquals(resultExpected, testHangman.hangmanGame("cat", "b"));
+  }
 
 
 
