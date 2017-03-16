@@ -5,14 +5,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HangmanTest {
-  @Test public void newGame_determineOneLetterWord_true(){
+  @Test
+  public void newGame_determineOneLetterWord_true(){
     Hangman testHangman = new Hangman();
-    assertEquals("Letter in word", testHangman.hangmanGame("a", "a"));
+    Integer resultExpected = 1;
+    assertEquals(resultExpected, testHangman.hangmanGame1("a", "a"));
   }
-  @Test public void newGame_determineOneLetterWord_false(){
+  @Test
+  public void newGame_determineOneLetterWord_false(){
     Hangman testHangman = new Hangman();
-    assertEquals("Letter not in word", testHangman.hangmanGame("a", "b"));
+    Integer resultExpected = 2;
+    assertEquals(resultExpected, testHangman.hangmanGame1("a", "b"));
   }
+  @Test
+  public void newGame_printLineOfDashesNoLettersGuessedCorrectly_dashes(){
+    Hangman testHangman = new Hangman();
+    String resultExpected = "___";
+    assertEquals(resultExpected, testHangman.hangmanGame2("cat"));
+  }
+  // @Test
+  // public void newGame_printLineOfDashesNoLettersGuessedCorrectly_spacesFilled(){
+  //   Hangman testHangman = new Hangman();
+  //   String resultExpected = "_ a _ ";
+  //   assertEquals(resultExpected, testHangman.hangmanGame2("cat", "a", 1));
+  // }
+
+
+
+
+
   // @Test public void newGame_determineManyLetterWord_true(){
   //   Hangman testHangman = new Hangman();
   //   assertEquals(true, testHangman.letterInWord("cat", "a"));
