@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +10,6 @@ public class Hangman{
   private String mDashesString = "";
   public boolean mStillPlaying = true;
 
-// Return String of letters and dashes, showing letters that were guessed correctly, and also blanks for letters that have not been guessed yet
   public String hangmanGame (String word, String letter){
     if (mWrongGuesses < 6) {
       if (mDashesString.length() > 0) {
@@ -42,7 +40,6 @@ public class Hangman{
         mDashesString = dashString;
         return mDashesString;
       }
-
     }
     else {
       mDashesString = "Game over. The word was: "+ word;
